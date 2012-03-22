@@ -29,9 +29,8 @@ import datetime
 
 from name_parser.parser import NameParser, InvalidNameException
 
-resultFilters = ["sub(pack|s|bed)", "nlsub(bed|s)?", "swesub(bed)?",
-                 "(dir|sample|nfo)fix", "sample", "(dvd)?extras", 
-                 "dub(bed)?"]
+resultFilters = ["sub(pack|s|bed)?", "nlsub(bed|s)?", "swesub(bed)?",
+				 "(sample|nfo)fix", "sample", "(dvd)?extras"]
 
 def filterBadReleases(name):
     """
@@ -208,7 +207,7 @@ def isGoodResult(name, show, log=True):
         escaped_name = re.sub('\\\\[\\s.-]', '\W+', re.escape(curName))
         if show.startyear:
             escaped_name += "(?:\W+"+str(show.startyear)+")?"
-        curRegex = '^' + escaped_name + '\W+(?:(?:S\d[\dE._ -])|(?:\d\d?x)|(?:\d{4}\W\d\d\W\d\d)|(?:(?:part|pt)[\._ -]?(\d|[ivx]))|Season\W+\d+\W+|E\d+\W+)'
+        curRegex = '^' + escaped_name + '\W+(?:(?:S\d[\dE._ -])|(?:\d\d?x)|(?:\d{4}\W\d\d\W\d\d)|(?:(?:part|pt)[\._ -]?(\d|[ivx]))|(Season|Staffel)\W+\d+\W+|E\d+\W+)'
         if log:
             logger.log(u"Checking if show "+name+" matches " + curRegex, logger.DEBUG)
 
